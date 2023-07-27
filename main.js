@@ -27,6 +27,18 @@ function pickRandom(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
+
+/**
+ * Description
+ * @param {Array<T>} array
+ * @param {number} index
+ * @returns {T}
+ */
+function modInto(arr, index) {
+    return arr[index % arr.length];
+}
+
+
 let HALF_PI = Math.PI * .5;
 let PI = Math.PI;
 let TAU = Math.PI * 2;
@@ -42,6 +54,7 @@ const sz = 60;
  * @property {number} i - index into the elem array
  * @property {number} angle - rotation of the letter
  * @property {String} char - what is drawn
+ * @property {String} colour - what is drawn
  * @property {boolean} isDrawn -is it drawn or skipped
  */
 
@@ -54,6 +67,13 @@ const sz = 60;
 function getElementsAtPos(x, y) {
     return elems.filter(e => e.x < x && e.x + sz > x && e.y < y && e.y + sz > y);
 }
+
+
+
+let angles = [0, 90];
+let chars = ["a", "e", "o"];
+let isDrawns = [true, true, true, true, false];
+let colours = ["red", "black", "black", "black", "black", "black", "black"];
 
 
 /**
@@ -71,11 +91,12 @@ function genPattern() {
                 x: i * sz + (w % sz) / 2,
                 y: j * sz + (h % sz) / 2,
                 i: k++,
-                angle: 0, // pickRandom([90, 270, 0, 180, 0]) * Math.PI / 180,
+                angle: modInto(angles, j), // pickRandom([90, 270, 0, 180, 0]) * Math.PI / 180,
                 // angle: Math.random() * 360 * Math.PI / 180,
-                char: "o",
+                char: modInto(chars, i),
                 // char: pickRandom(["a", "e", "o"]),
-                isDrawn: true, //Math.random() > .125,
+                isDrawn: modInto(isDrawns, j), //Math.random() > .125,
+                colour: modInto(colours, i),
             };
             elems.push(elem);
         }
@@ -179,6 +200,8 @@ function draw() {
 
         // ctx.fillRect(0, 0, 5, 5);
         if (p.isDrawn) {
+
+            ctx.fillStyle = p.colour;
             ctx.fillText(p.char, 0, fontSize * .25);
         }
         ctx.restore();
