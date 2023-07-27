@@ -9,12 +9,13 @@ var ctx = canvas.getContext('2d');
 function setCanvasSize() {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
-    gen();
+    draw();
 }
-setCanvasSize();
 window.addEventListener("resize", setCanvasSize);
 window.addEventListener("orientationchange", setCanvasSize);
-window.addEventListener("click", gen);
+window.addEventListener("mousedown", onMouseDown);
+window.addEventListener("mouseup", onMouseUp);
+window.addEventListener("mousemove", onMouseMove);
 
 
 /**
@@ -26,18 +27,133 @@ function pickRandom(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
-function gen() {
+let HALF_PI = Math.PI * .5;
+let PI = Math.PI;
+let TAU = Math.PI * 2;
+
+
+const sz = 60;
+
+
+/**
+ * @typedef {Object} ElemDef - defines a square of the pattern grid
+ * @property {number} x - x position (top left)
+ * @property {number} y - y position (top left)
+ * @property {number} i - index into the elem array
+ * @property {number} angle - rotation of the letter
+ * @property {String} char - what is drawn
+ * @property {boolean} isDrawn -is it drawn or skipped
+ */
+
+/**
+ * Description
+ * @param {number} x
+ * @param {number} y
+ * @returns {ElemDef[]}
+ */
+function getElementsAtPos(x, y) {
+    return elems.filter(e => e.x < x && e.x + sz > x && e.y < y && e.y + sz > y);
+}
+
+
+/**
+ * @type {ElemDef[]}
+ */
+var elems = [];
+
+function genPattern() {
+    elems = [];
+
+    var k = 0;
+    for (var i = 1; i + 2 < w / sz; i++) {
+        for (var j = 1; j + 2 < h / sz; j++) {
+            const elem = {
+                x: i * sz + (w % sz) / 2,
+                y: j * sz + (h % sz) / 2,
+                i: k++,
+                angle: 0, // pickRandom([90, 270, 0, 180, 0]) * Math.PI / 180,
+                // angle: Math.random() * 360 * Math.PI / 180,
+                char: "o",
+                // char: pickRandom(["a", "e", "o"]),
+                isDrawn: true, //Math.random() > .125,
+            };
+            elems.push(elem);
+        }
+    }
+}
+
+let mouseClicked;
+
+/**
+ * Description
+ * @param {MouseEvent?} ev
+ * @returns {void}
+ */
+function onMouseUp(ev) {
+    mouseClicked = false;
+    lastEditedI = null;
+}
+
+
+/**
+ * Description
+ * @param {MouseEvent?} ev
+ * @returns {void}
+ */
+function onMouseDown(ev) {
+
+    mouseClicked = true;
+}
+
+/**
+ * @type {number?}
+ */
+let lastEditedI = null;
+
+/**
+ * Description
+ * @param {MouseEvent?} ev
+ * @returns {void}
+ */
+function onMouseMove(ev) {
+
+    if (mouseClicked) {
+        let clicked = getElementsAtPos(ev.pageX, ev.pageY);
+
+
+
+        for (const c of clicked) {
+            if (c.i == lastEditedI) continue;
+            c.angle = c.angle + 90 * Math.PI / 180;
+            // c.char = pickRandom(["a", "e", "o"]);
+            // c.isDrawn = Math.random() > .125;
+            lastEditedI = c.i;
+        }
+
+
+
+
+
+        draw();
+    }
+
+}
+
+
+
+function draw() {
     ctx.clearRect(0, 0, w, h);
-    const sz = 60;
+
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, w, h);
+
+    ctx.fillStyle = "black";
+
+
     var fr = x => Math.floor(Math.random() * x);
     var setFont = x => ctx.font = Math.round(x).toString() + 'px sans-serif';
 
-    var ps = [];
-    for (var i = 1; i + 2 < w / sz; i++) {
-        for (var j = 1; j + 2 < h / sz; j++) {
-            ps.push({ x: i, y: j, size: 1 });
-        }
-    }
+
 
 
     ctx.textAlign = "center";
@@ -45,16 +161,32 @@ function gen() {
 
     setFont(25);
 
-    for (const p of ps) {
-        var x = p.x * sz + (w % sz) / 2;
-        var y = p.y * sz + (h % sz) / 2;
-        var s = p.size * sz;
-        // ctx.strokeRect(x + 3, y + 3, s - 3, s - 3);
-        const fontSize = p.size * 150;
+    for (const p of elems) {
+        ctx.save();
+        var x = p.x;
+        var y = p.y;
+        var s = sz;
+        const fontSize = 150;
         setFont(fontSize)
 
 
-        var char = pickRandom(["a", "e"]);
-        ctx.fillText(char, x + s * .5, y + fontSize * .5);
+        // var char = pickRandom(["a", "e", "i"][p.i % 3]);
+
+        ctx.translate(x + s * .5, y + s * .5);
+        ctx.rotate(p.angle);
+        // ctx.rotate(pickRandom([90, 270, 0, 180, 0]) * Math.PI / 180);
+        // ctx.rotate(([90, 270, 0, 180, 0][p.i % 5]) * Math.PI / 180);
+
+        // ctx.fillRect(0, 0, 5, 5);
+        if (p.isDrawn) {
+            ctx.fillText(p.char, 0, fontSize * .25);
+        }
+        ctx.restore();
     }
 }
+
+
+
+setCanvasSize();
+genPattern();
+draw();
