@@ -38,13 +38,17 @@ function modInto(arr, index) {
     return arr[index % arr.length];
 }
 
+function xor(a, b) {
+    return !a != !b;
+}
+
 
 let HALF_PI = Math.PI * .5;
 let PI = Math.PI;
 let TAU = Math.PI * 2;
 
 
-const sz = 25;
+let sz = 50;
 
 
 /**
@@ -55,7 +59,8 @@ const sz = 25;
  * @property {number} angle - rotation of the letter
  * @property {number} size - size of the letter
  * @property {String} char - what is drawn
- * @property {String} colour - what is drawn
+ * @property {String} colourX - what is drawn
+ * @property {String} colourY - what is drawn
  * @property {boolean} isDrawn -is it drawn or skipped
  */
 
@@ -71,11 +76,22 @@ function getElementsAtPos(x, y) {
 
 
 
-let angles = [0, 90, 0, 90, 0, 90, 45, 90,];  //j
-let chars = ["a", "e", "o"]; //i
-let isDrawns = [true, true, true, true, false]; //j
-let colours = ["rgba(0,0,0,1)", "rgba(0,0,0,.5)", "rgba(0,0,0,1)"]; //i
-let sizes = [2.5, 1, 1.5, 1, 0.5]; //j
+let charSequence = "0123456789";
+
+
+let coloursX = ["rgba(0,0,0,1)"]; //i
+let coloursY = ["rgba(0,0,0,1)"]; //i
+
+
+let anglesX = [0, 15, 30, 45, 60, 75,];
+let anglesY = [0, 270];
+
+let isDrawnsX = [true];
+let isDrawnsY = [false];
+
+
+let sizesX = [1, -1,];
+let sizesY = [.5, -.5, 0];
 
 
 /**
@@ -87,26 +103,27 @@ function genPattern() {
     elems = [];
 
     var k = 0;
-    for (var i = 1; i + 2 < w / sz; i++) {
-        for (var j = 1; j + 2 < h / sz; j++) {
+    for (var j = 1; j + 2 < h / sz; j++) {
+        for (var i = 1; i + 2 < w / sz; i++) {
             const elem = {
                 x: i * sz + (w % sz) / 2,
                 y: j * sz + (h % sz) / 2,
                 i: k++,
-                angle: modInto(angles, j) * Math.PI / 180, // pickRandom([90, 270, 0, 180, 0]) * Math.PI / 180,
+                angle: (modInto(anglesX, i) + modInto(anglesY, j)) * Math.PI / 180, // pickRandom([90, 270, 0, 180, 0]) * Math.PI / 180,
                 // angle: Math.random() * 360 * Math.PI / 180,
-                char: modInto(chars, i),
+                char: modInto(charSequence, k),
                 // char: pickRandom(["a", "e", "o"]),
-                isDrawn: modInto(isDrawns, j), //Math.random() > .125,
-                colour: modInto(colours, i),
-                size: modInto(sizes, j),
+                isDrawn: xor(modInto(isDrawnsX, i), modInto(isDrawnsY, j)), //Math.random() > .125,
+                colourX: modInto(coloursX, i),
+                colourY: modInto(coloursY, j),
+                size: Math.abs(modInto(sizesX, i) - modInto(sizesY, j)),
             };
             elems.push(elem);
         }
     }
 }
 
-let mouseClicked;
+let mouseClicked = false;
 
 /**
  * Description
@@ -204,15 +221,33 @@ function draw() {
         // ctx.fillRect(0, 0, 5, 5);
         if (p.isDrawn) {
 
-            ctx.fillStyle = p.colour;
+            ctx.fillStyle = p.colourX;
             ctx.fillText(p.char, 0, fontSize * .25);
+            ctx.globalCompositeOperation = "difference";
+            ctx.fillStyle = p.colourY;
+            ctx.fillText(p.char, 0, fontSize * .25);
+            ctx.globalCompositeOperation = "source-over";
         }
         ctx.restore();
     }
 }
 
 
+//TODO: perf would be better if we did the two colour passes completely, rather than interleaving them
+// or even better! and look nicer! if we did the colour math ourselves & just rendered it once
+
 
 setCanvasSize();
+function raf() {
+
+    genPattern();
+    draw();
+    requestAnimationFrame(raf);
+}
+// raf();
+
+
 genPattern();
 draw();
+
+
