@@ -44,7 +44,7 @@ let PI = Math.PI;
 let TAU = Math.PI * 2;
 
 
-const sz = 60;
+const sz = 25;
 
 
 /**
@@ -53,6 +53,7 @@ const sz = 60;
  * @property {number} y - y position (top left)
  * @property {number} i - index into the elem array
  * @property {number} angle - rotation of the letter
+ * @property {number} size - size of the letter
  * @property {String} char - what is drawn
  * @property {String} colour - what is drawn
  * @property {boolean} isDrawn -is it drawn or skipped
@@ -70,10 +71,11 @@ function getElementsAtPos(x, y) {
 
 
 
-let angles = [0, 90];
-let chars = ["a", "e", "o"];
-let isDrawns = [true, true, true, true, false];
-let colours = ["red", "black", "black", "black", "black", "black", "black"];
+let angles = [0, 90, 0, 90, 0, 90, 45, 90,];  //j
+let chars = ["a", "e", "o"]; //i
+let isDrawns = [true, true, true, true, false]; //j
+let colours = ["rgba(0,0,0,1)", "rgba(0,0,0,.5)", "rgba(0,0,0,1)"]; //i
+let sizes = [2.5, 1, 1.5, 1, 0.5]; //j
 
 
 /**
@@ -91,12 +93,13 @@ function genPattern() {
                 x: i * sz + (w % sz) / 2,
                 y: j * sz + (h % sz) / 2,
                 i: k++,
-                angle: modInto(angles, j), // pickRandom([90, 270, 0, 180, 0]) * Math.PI / 180,
+                angle: modInto(angles, j) * Math.PI / 180, // pickRandom([90, 270, 0, 180, 0]) * Math.PI / 180,
                 // angle: Math.random() * 360 * Math.PI / 180,
                 char: modInto(chars, i),
                 // char: pickRandom(["a", "e", "o"]),
                 isDrawn: modInto(isDrawns, j), //Math.random() > .125,
                 colour: modInto(colours, i),
+                size: modInto(sizes, j),
             };
             elems.push(elem);
         }
@@ -187,7 +190,7 @@ function draw() {
         var x = p.x;
         var y = p.y;
         var s = sz;
-        const fontSize = 150;
+        const fontSize = sz * p.size;
         setFont(fontSize)
 
 
