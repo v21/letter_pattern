@@ -7,12 +7,14 @@ var canvas = document.getElementById("c", { alpha: false });
 var ctx = canvas.getContext('2d');
 
 function setCanvasSize() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
+    var size = Math.min(window.innerWidth, window.innerHeight - 205);
+
+    w = canvas.width = size;
+    h = canvas.height = size;
     draw();
 }
-window.addEventListener("resize", setCanvasSize);
-window.addEventListener("orientationchange", setCanvasSize);
+window.addEventListener("resize", raf);
+window.addEventListener("orientationchange", raf);
 window.addEventListener("mousedown", onMouseDown);
 window.addEventListener("mouseup", onMouseUp);
 window.addEventListener("mousemove", onMouseMove);
@@ -76,22 +78,24 @@ function getElementsAtPos(x, y) {
 
 
 
-let charSequence = "0123456789";
+let charSequence = "aaeeaaaee";
 
 
-let coloursX = ["rgba(0,0,0,1)"]; //i
-let coloursY = ["rgba(0,0,0,1)"]; //i
+let coloursX = ["rgba(0,0,0,1)", "rgba(255,255,255,1)"]; //i
+let coloursY = ["rgba(255,0,0,.5)", "rgba(255,0,255,.5)"]; //i
 
 
-let anglesX = [0, 15, 30, 45, 60, 75,];
-let anglesY = [0, 270];
+let anglesX = [12, 82, 171, 280];
+let anglesY = [270, 180, 90, 0];
 
 let isDrawnsX = [true];
 let isDrawnsY = [false];
 
 
-let sizesX = [1, -1,];
-let sizesY = [.5, -.5, 0];
+let sizesX = [1,];
+let sizesY = [0,];
+// let sizesX = [1, -1, 1, -1];
+// let sizesY = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, .8, .9, 1];
 
 
 /**
@@ -111,7 +115,7 @@ function genPattern() {
                 i: k++,
                 angle: (modInto(anglesX, i) + modInto(anglesY, j)) * Math.PI / 180, // pickRandom([90, 270, 0, 180, 0]) * Math.PI / 180,
                 // angle: Math.random() * 360 * Math.PI / 180,
-                char: modInto(charSequence, k),
+                char: modInto(charSequence, k - 1),
                 // char: pickRandom(["a", "e", "o"]),
                 isDrawn: xor(modInto(isDrawnsX, i), modInto(isDrawnsY, j)), //Math.random() > .125,
                 colourX: modInto(coloursX, i),
@@ -192,7 +196,7 @@ function draw() {
 
 
     var fr = x => Math.floor(Math.random() * x);
-    var setFont = x => ctx.font = Math.round(x).toString() + 'px sans-serif';
+    var setFont = x => ctx.font = Math.round(x).toString() + 'px monospace';
 
 
 
@@ -236,18 +240,48 @@ function draw() {
 //TODO: perf would be better if we did the two colour passes completely, rather than interleaving them
 // or even better! and look nicer! if we did the colour math ourselves & just rendered it once
 
+/**
+ * @type {HTMLTextAreaElement}
+ */
+var codeDiv = document.getElementById("code");
 
-setCanvasSize();
-function raf() {
+/**
+ * Description
+ * @param {Event} ev
+ * @returns {void}
+ */
+function onCodeChange(ev) {
+    try {
+        eval(codeDiv.value);
+        codeDiv.style = "background-color: powderblue;";
+    } catch (e) {
+        console.log(" error: ", e.message);
+        codeDiv.style = "background-color: plum;";
+    }
 
     genPattern();
     draw();
-    requestAnimationFrame(raf);
+
+}
+
+function listenToCodeBlock() {
+
+
+
+    codeDiv.addEventListener("input", onCodeChange);
+    onCodeChange();
+}
+
+setCanvasSize();
+listenToCodeBlock();
+
+function raf() {
+    setCanvasSize();
+    genPattern();
+    draw();
+    // requestAnimationFrame(raf);
 }
 // raf();
 
-
-genPattern();
-draw();
 
 

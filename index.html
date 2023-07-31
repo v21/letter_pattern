@@ -15,7 +15,20 @@
     <style>
         body {
             margin: 0;
-            overflow: hidden
+        }
+
+        * {
+            border: 0;
+            padding: 0;
+        }
+
+        #code {
+            display: block;
+            font-family: monospace;
+            white-space: pre-wrap;
+            width: calc(100% - 24px);
+            height: 200px;
+            background-color: powderblue;
         }
     </style>
 </head>
@@ -23,6 +36,22 @@
 <body>
     <!-- The following is the poem code, which is no more than 2048 bytes -->
     <canvas id="c"></canvas>
+    <!--noformat--><textarea id="code" contenteditable="plaintext-only">
+charSequence = "aaeeaaaee";
+
+coloursX = ["rgba(0,0,0,1)"];
+coloursY = ["rgba(0,0,0,1)"];
+
+anglesX = [12, 82, 171, 280];
+anglesY = [270, 180, 90, 0];
+
+isDrawnsX = [true];
+isDrawnsY = [false];
+
+sizesX = [1,];
+sizesY = [0,];
+sz = 50;
+   </textarea> <!--noformat-->
     <script src="main.js">
 
     </script>
