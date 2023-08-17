@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="og:title" content="Display Case">
+    <!-- <meta name="og:title" content="Display Case">
     <meta name="og:author" content="v buckenham">
     <meta name="og:type" content="website">
     <meta property="og:description" content="A poem by v buckenham for Taper #7" />
     <meta name="og:image" content="https://taper.badquar.to/7/images/display_case.jpg">
-    <meta name="og:url" content="https://taper.badquar.to/7/display_case.html">
-    <title>Display Case (Taper #7)</title>
+    <meta name="og:url" content="https://taper.badquar.to/7/display_case.html"> -->
+    <title>Letter Pattern prototype</title>
 
 
     <style>
@@ -29,13 +29,16 @@
             width: calc(100% - 24px);
             height: 200px;
             background-color: powderblue;
+            padding: 8px
         }
     </style>
 </head>
 
 <body>
-    <!-- The following is the poem code, which is no more than 2048 bytes -->
     <canvas id="c"></canvas>
+    <select name="fonts" id="font-select">
+
+    </select>
     <!--noformat--><textarea id="code" contenteditable="plaintext-only">
 charSequence = "aaeeaaaee";
 
@@ -52,9 +55,8 @@ sizesX = [1,];
 sizesY = [0,];
 sz = 50;
    </textarea> <!--noformat-->
-    <script src="main.js">
-
-    </script>
+    <script src="main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
 </body>
 
 </html>

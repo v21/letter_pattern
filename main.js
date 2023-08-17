@@ -15,9 +15,9 @@ function setCanvasSize() {
 }
 window.addEventListener("resize", raf);
 window.addEventListener("orientationchange", raf);
-window.addEventListener("mousedown", onMouseDown);
-window.addEventListener("mouseup", onMouseUp);
-window.addEventListener("mousemove", onMouseMove);
+// window.addEventListener("mousedown", onMouseDown);
+// window.addEventListener("mouseup", onMouseUp);
+// window.addEventListener("mousemove", onMouseMove);
 
 
 /**
@@ -76,6 +76,7 @@ function getElementsAtPos(x, y) {
     return elems.filter(e => e.x < x && e.x + sz > x && e.y < y && e.y + sz > y);
 }
 
+let font = "monospace";
 
 
 let charSequence = "aaeeaaaee";
@@ -85,7 +86,19 @@ let coloursX = ["rgba(0,0,0,1)", "rgba(255,255,255,1)"]; //i
 let coloursY = ["rgba(255,0,0,.5)", "rgba(255,0,255,.5)"]; //i
 
 
+/**
+ * A number, or a function returning a number.
+ * @typedef {(number|() => number)} NumberOrNumberGen
+ */
+
+
+/**
+ * @type {NumberOrNumberGen[]}
+ */
 let anglesX = [12, 82, 171, 280];
+/**
+ * @type {NumberOrNumberGen[]}
+ */
 let anglesY = [270, 180, 90, 0];
 
 let isDrawnsX = [true];
@@ -97,6 +110,8 @@ let sizesY = [0,];
 // let sizesX = [1, -1, 1, -1];
 // let sizesY = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, .8, .9, 1];
 
+
+let fontStyle = "";
 
 /**
  * @type {ElemDef[]}
@@ -113,17 +128,31 @@ function genPattern() {
                 x: i * sz + (w % sz) / 2,
                 y: j * sz + (h % sz) / 2,
                 i: k++,
-                angle: (modInto(anglesX, i) + modInto(anglesY, j)) * Math.PI / 180, // pickRandom([90, 270, 0, 180, 0]) * Math.PI / 180,
+                angle: (resolve(modInto(anglesX, i)) + resolve(modInto(anglesY, j))) * Math.PI / 180, // pickRandom([90, 270, 0, 180, 0]) * Math.PI / 180,
                 // angle: Math.random() * 360 * Math.PI / 180,
-                char: modInto(charSequence, k - 1),
+                char: resolve(modInto(charSequence, k - 1)),
                 // char: pickRandom(["a", "e", "o"]),
-                isDrawn: xor(modInto(isDrawnsX, i), modInto(isDrawnsY, j)), //Math.random() > .125,
-                colourX: modInto(coloursX, i),
-                colourY: modInto(coloursY, j),
-                size: Math.abs(modInto(sizesX, i) - modInto(sizesY, j)),
+                isDrawn: xor(resolve(modInto(isDrawnsX, i)), resolve(modInto(isDrawnsY, j))), //Math.random() > .125,
+                colourX: resolve(modInto(coloursX, i)),
+                colourY: resolve(modInto(coloursY, j)),
+                size: Math.abs(resolve(modInto(sizesX, i)) - resolve(modInto(sizesY, j))),
             };
             elems.push(elem);
         }
+    }
+}
+
+/**
+ * Description
+ * @param {NumberOrNumberGen} val
+ * @returns {number}
+ */
+function resolve(val) {
+
+    if (val instanceof Function) {
+        return val();
+    } else {
+        return val;
     }
 }
 
@@ -196,7 +225,7 @@ function draw() {
 
 
     var fr = x => Math.floor(Math.random() * x);
-    var setFont = x => ctx.font = Math.round(x).toString() + 'px monospace';
+    var setFont = x => ctx.font = fontStyle + " " + Math.round(x).toString() + 'px ' + font;
 
 
 
@@ -259,21 +288,76 @@ function onCodeChange(ev) {
         codeDiv.style = "background-color: plum;";
     }
 
+    sz = Math.max(5, sz);
+
+
     genPattern();
     draw();
 
+
+}
+
+//preincludes generic fonts
+let loadedFonts = ["monospace", "serif", "sans-serif"];
+
+/**
+ * Description
+ * @this HTMLSelectElement
+ * @param {Event} ev
+ * @returns {void}
+ */
+function onFontDropdownChanged(ev) {
+    font = this.value;
+
+    if (!loadedFonts.includes(font)) {
+
+        WebFont.load({
+            google: {
+                families: [font],
+            },
+            classes: false,
+            active: function () {
+                loadedFonts.push(font);
+                genPattern();
+                draw();
+            },
+        },);
+
+    }
+
+
+    genPattern();
+    draw();
 }
 
 function listenToCodeBlock() {
-
-
-
     codeDiv.addEventListener("input", onCodeChange);
     onCodeChange();
 }
 
+function populateFontDropdown() {
+    /**
+     * @type {HTMLSelectElement}
+     */
+    var dropdown = document.getElementById("font-select");
+
+    const fonts = ["monospace", "serif", "sans-serif", "Barriecito", "EB Garamond", "Xanh Mono", "IBM Plex Mono", "Inter Tight", "Nunito", "Oswald", "Sono", "Gluten", "Old Standard TT"];
+
+    for (const font of fonts) {
+        const option = document.createElement("option");
+
+        option.value = font;
+        option.text = font;
+        dropdown.add(option, null);
+    }
+
+    dropdown.addEventListener("change", onFontDropdownChanged);
+}
+
+
 setCanvasSize();
 listenToCodeBlock();
+populateFontDropdown();
 
 function raf() {
     setCanvasSize();
