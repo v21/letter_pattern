@@ -40,8 +40,33 @@ function modInto(arr, index) {
     return arr[index % arr.length];
 }
 
+function op(a, b, op) {
+    switch (op) {
+        case "xor":
+            return xor(a, b);
+        case "and":
+            return and(a, b);
+        case "or":
+            return or(a, b);
+        case "nor":
+            return nor(a, b);
+    }
+}
+
 function xor(a, b) {
     return !a != !b;
+}
+
+function and(a, b) {
+    return a && b;
+}
+
+function or(a, b) {
+    return a || b;
+}
+
+function nor(a, b) {
+    return !(a == b);
 }
 
 
@@ -50,7 +75,6 @@ let PI = Math.PI;
 let TAU = Math.PI * 2;
 
 
-let sz = 50;
 
 
 /**
@@ -103,12 +127,16 @@ let anglesY = [270, 180, 90, 0];
 
 let isDrawnsX = [true];
 let isDrawnsY = [false];
+let isDrawnsOp = "xor";
 
 
 let sizesX = [1,];
 let sizesY = [0,];
 // let sizesX = [1, -1, 1, -1];
 // let sizesY = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, .8, .9, 1];
+
+let spacingX = 50;
+let spacingY = 50;
 
 
 let fontStyle = "";
@@ -122,17 +150,17 @@ function genPattern() {
     elems = [];
 
     var k = 0;
-    for (var j = 1; j + 2 < h / sz; j++) {
-        for (var i = 1; i + 2 < w / sz; i++) {
+    for (var j = 0; j + 2 < h / spacingY; j++) {
+        for (var i = 0; i + 2 < w / spacingX; i++) {
             const elem = {
-                x: i * sz + (w % sz) / 2,
-                y: j * sz + (h % sz) / 2,
+                x: (i + 1) * spacingX + (w % spacingX) / 2,
+                y: (j + 1) * spacingY + (h % spacingY) / 2,
                 i: k++,
                 angle: (resolve(modInto(anglesX, i)) + resolve(modInto(anglesY, j))) * Math.PI / 180, // pickRandom([90, 270, 0, 180, 0]) * Math.PI / 180,
                 // angle: Math.random() * 360 * Math.PI / 180,
                 char: resolve(modInto(charSequence, k - 1)),
                 // char: pickRandom(["a", "e", "o"]),
-                isDrawn: xor(resolve(modInto(isDrawnsX, i)), resolve(modInto(isDrawnsY, j))), //Math.random() > .125,
+                isDrawn: op(resolve(modInto(isDrawnsX, i)), resolve(modInto(isDrawnsY, j)), isDrawnsOp), //Math.random() > .125,
                 colourX: resolve(modInto(coloursX, i)),
                 colourY: resolve(modInto(coloursY, j)),
                 size: Math.abs(resolve(modInto(sizesX, i)) - resolve(modInto(sizesY, j))),
@@ -239,14 +267,13 @@ function draw() {
         ctx.save();
         var x = p.x;
         var y = p.y;
-        var s = sz;
-        const fontSize = sz * p.size;
+        const fontSize = Math.min(spacingX, spacingY) * p.size;
         setFont(fontSize)
 
 
         // var char = pickRandom(["a", "e", "i"][p.i % 3]);
 
-        ctx.translate(x + s * .5, y + s * .5);
+        ctx.translate(x + spacingX * .5, y + spacingY * .5);
         ctx.rotate(p.angle);
         // ctx.rotate(pickRandom([90, 270, 0, 180, 0]) * Math.PI / 180);
         // ctx.rotate(([90, 270, 0, 180, 0][p.i % 5]) * Math.PI / 180);
@@ -288,7 +315,8 @@ function onCodeChange(ev) {
         codeDiv.style = "background-color: plum;";
     }
 
-    sz = Math.max(5, sz);
+    spacingX = Math.max(10, spacingX);
+    spacingY = Math.max(10, spacingY);
 
 
     genPattern();
