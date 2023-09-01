@@ -88,6 +88,7 @@ let TAU = Math.PI * 2;
  * @property {String} colourX - what is drawn
  * @property {String} colourY - what is drawn
  * @property {boolean} isDrawn -is it drawn or skipped
+ * @property {boolean} isHorizFlipped -is it flipped on the X axis
  */
 
 /**
@@ -103,7 +104,15 @@ function getElementsAtPos(x, y) {
 let font = "monospace";
 
 
-let charSequence = "aaeeaaaee";
+let charSequence = "1234567890";
+
+let writingMode = 0;
+// 0 is ltr
+// 1 is rtl
+// 2 is vertical down
+// 3 is vertical up
+// 4 is bouphestron
+
 
 
 let coloursX = ["rgba(0,0,0,1)", "rgba(255,255,255,1)"]; //i
@@ -135,8 +144,8 @@ let sizesY = [0,];
 // let sizesX = [1, -1, 1, -1];
 // let sizesY = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, .8, .9, 1];
 
-let spacingX = 50;
-let spacingY = 50;
+let countX = 10;
+let countY = 10;
 
 
 let fontStyle = "";
@@ -150,23 +159,72 @@ function genPattern() {
     elems = [];
 
     var k = 0;
-    for (var j = 0; j + 2 < h / spacingY; j++) {
-        for (var i = 0; i + 2 < w / spacingX; i++) {
+    const spacingX = w / (countX + 2);
+    const spacingY = h / (countY + 2);
+    for (var j = 0; j < countY; j++) {
+        for (var i = 0; i < countX; i++) {
+
             const elem = {
-                x: (i + 1) * spacingX + (w % spacingX) / 2,
-                y: (j + 1) * spacingY + (h % spacingY) / 2,
+                x: (i + 1) * spacingX,
+                y: (j + 1) * spacingY,
                 i: k++,
                 angle: (resolve(modInto(anglesX, i)) + resolve(modInto(anglesY, j))) * Math.PI / 180, // pickRandom([90, 270, 0, 180, 0]) * Math.PI / 180,
                 // angle: Math.random() * 360 * Math.PI / 180,
-                char: resolve(modInto(charSequence, k - 1)),
+                char: resolve(modInto(charSequence, getCharSequenceIndex(i, j, countX, countY, writingMode))),
                 // char: pickRandom(["a", "e", "o"]),
                 isDrawn: op(resolve(modInto(isDrawnsX, i)), resolve(modInto(isDrawnsY, j)), isDrawnsOp), //Math.random() > .125,
                 colourX: resolve(modInto(coloursX, i)),
                 colourY: resolve(modInto(coloursY, j)),
                 size: Math.abs(resolve(modInto(sizesX, i)) - resolve(modInto(sizesY, j))),
+                isHorizFlipped: writingMode == 5 && (j % 2 == 1)
             };
             elems.push(elem);
         }
+    }
+}
+
+function getCharSequenceIndex(x, y, width, height, writingMode) {
+    switch (writingMode) {
+        case 0: //ltr
+            return x + y * width;
+
+        case 1: //rtl
+            return (width - x - 1) + y * width;
+        case 2: //top to bottom
+            return y + x * height;
+        case 3: //bottom to top
+            return (height - y - 1) + (width - x - 1) * height;
+
+        case 4: //pacing bull
+        case 5: //pacing bull, authentic
+            if (y % 2 == 0) {
+                return x + y * width;
+            }
+            else {
+                return (width - x - 1) + y * width;
+            }
+
+        case 6:
+            x = Math.round(x - width * .5);
+            y = Math.round(y - height * .5);
+            let p;
+            if (y * y >= x * x) {
+                p = 4 * y * y - y - x;
+                if (y < x) {
+                    p = p - 2 * (y - x);
+                }
+            }
+            else {
+                p = 4 * x * x - y - x;
+                if (y < x) {
+                    p = p + 2 * (y - x)
+                }
+            }
+            return p;
+
+
+        default:
+            break;
     }
 }
 
@@ -263,6 +321,10 @@ function draw() {
 
     setFont(25);
 
+
+    const spacingX = w / (countX + 2);
+    const spacingY = h / (countY + 2);
+
     for (const p of elems) {
         ctx.save();
         var x = p.x;
@@ -275,6 +337,9 @@ function draw() {
 
         ctx.translate(x + spacingX * .5, y + spacingY * .5);
         ctx.rotate(p.angle);
+        if (p.isHorizFlipped) {
+            ctx.scale(-1, 1);
+        }
         // ctx.rotate(pickRandom([90, 270, 0, 180, 0]) * Math.PI / 180);
         // ctx.rotate(([90, 270, 0, 180, 0][p.i % 5]) * Math.PI / 180);
 
@@ -315,9 +380,6 @@ function onCodeChange(ev) {
         codeDiv.style = "background-color: plum;";
     }
 
-    spacingX = Math.max(10, spacingX);
-    spacingY = Math.max(10, spacingY);
-
 
     genPattern();
     draw();
@@ -326,7 +388,41 @@ function onCodeChange(ev) {
 }
 
 //preincludes generic fonts
-let loadedFonts = ["monospace", "serif", "sans-serif"];
+let loadedFonts = ["monospace", "serif", "sans-serif",
+
+    "Barriecito",
+    "EB Garamond",
+    "Xanh Mono",
+    "IBM Plex Mono",
+    "Inter Tight",
+    "Nunito",
+    "Oswald",
+    "Sono",
+    "Gluten",
+    "Old Standard TT",
+    "BIZ UDPMincho",
+    "Zen Old Mincho",
+    "Instrument Serif",
+    //local
+    "Select Mono",
+    "JGS",
+    "Basteleur",
+    "Lithops",
+    "Sligoil",
+    "Pilowlava",
+    "PicNic",
+    "TINY",
+    "Avara",
+    "Kaeru Kaeru",
+    "Bluu Next",
+    "Savate",
+    "Nyght Serif",
+    "Nyght Serif Italic",
+    "Piscolabis",
+    "Roubaix Industrielle",
+    "Picaflor",
+    "Generale Station",
+];
 
 /**
  * Description
@@ -337,21 +433,30 @@ let loadedFonts = ["monospace", "serif", "sans-serif"];
 function onFontDropdownChanged(ev) {
     font = this.value;
 
-    if (!loadedFonts.includes(font)) {
+    try {
+        if (!loadedFonts.includes(font)) {
 
-        WebFont.load({
-            google: {
-                families: [font],
-            },
-            classes: false,
-            active: function () {
-                loadedFonts.push(font);
-                genPattern();
-                draw();
-            },
-        },);
+            WebFont.load({
+                google: {
+                    families: [font],
+                },
+                classes: false,
+                active: function () {
+                    loadedFonts.push(font);
+                    genPattern();
+                    draw();
+                },
+            },);
+
+        }
+    } catch {
 
     }
+
+    setTimeout(() => {
+        genPattern();
+        draw();
+    }, 100);
 
 
     genPattern();
@@ -369,7 +474,43 @@ function populateFontDropdown() {
      */
     var dropdown = document.getElementById("font-select");
 
-    const fonts = ["monospace", "serif", "sans-serif", "Barriecito", "EB Garamond", "Xanh Mono", "IBM Plex Mono", "Inter Tight", "Nunito", "Oswald", "Sono", "Gluten", "Old Standard TT"];
+    const fonts = ["monospace",
+        "serif",
+        "sans-serif",
+        //google fonts
+        "Barriecito",
+        "EB Garamond",
+        "Xanh Mono",
+        "IBM Plex Mono",
+        "Inter Tight",
+        "Nunito",
+        "Oswald",
+        "Sono",
+        "Gluten",
+        "Old Standard TT",
+        "BIZ UDPMincho",
+        "Zen Old Mincho",
+        "Instrument Serif",
+        //local
+        "Select Mono",
+        "JGS",
+        "Basteleur",
+        "Lithops",
+        "Sligoil",
+        "Pilowlava",
+        "PicNic",
+        "TINY",
+        "Avara",
+        "Kaeru Kaeru",
+        "Bluu Next",
+        "Savate",
+        "Nyght Serif",
+        "Nyght Serif Italic",
+        "Piscolabis",
+        "Roubaix Industrielle",
+        "Picaflor",
+        "Generale Station",
+    ];
 
     for (const font of fonts) {
         const option = document.createElement("option");

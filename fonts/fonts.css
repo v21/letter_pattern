@@ -1,0 +1,411 @@
+/* barriecito-regular - latin_latin-ext_vietnamese */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Barriecito';
+    font-style: normal;
+    font-weight: 400;
+    src: url('barriecito-v17-latin_latin-ext_vietnamese-regular.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* eb-garamond-regular - cyrillic_cyrillic-ext_greek_greek-ext_latin_latin-ext_vietnamese */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'EB Garamond';
+    font-style: normal;
+    font-weight: 400;
+    src: url('eb-garamond-v26-cyrillic_cyrillic-ext_greek_greek-ext_latin_latin-ext_vietnamese-regular.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* eb-garamond-italic - cyrillic_cyrillic-ext_greek_greek-ext_latin_latin-ext_vietnamese */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'EB Garamond';
+    font-style: italic;
+    font-weight: 400;
+    src: url('eb-garamond-v26-cyrillic_cyrillic-ext_greek_greek-ext_latin_latin-ext_vietnamese-italic.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* xanh-mono-regular - latin_latin-ext_vietnamese */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Xanh Mono';
+    font-style: normal;
+    font-weight: 400;
+    src: url('xanh-mono-v18-latin_latin-ext_vietnamese-regular.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* xanh-mono-italic - latin_latin-ext_vietnamese */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Xanh Mono';
+    font-style: italic;
+    font-weight: 400;
+    src: url('xanh-mono-v18-latin_latin-ext_vietnamese-italic.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* ibm-plex-mono-regular - cyrillic_cyrillic-ext_latin_latin-ext_vietnamese */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 400;
+    src: url('ibm-plex-mono-v19-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-regular.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* ibm-plex-mono-italic - cyrillic_cyrillic-ext_latin_latin-ext_vietnamese */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'IBM Plex Mono';
+    font-style: italic;
+    font-weight: 400;
+    src: url('ibm-plex-mono-v19-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-italic.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* inter-tight-regular - cyrillic_cyrillic-ext_greek_greek-ext_latin_latin-ext_vietnamese */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Inter Tight';
+    font-style: normal;
+    font-weight: 400;
+    src: url('inter-tight-v7-cyrillic_cyrillic-ext_greek_greek-ext_latin_latin-ext_vietnamese-regular.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* inter-tight-italic - cyrillic_cyrillic-ext_greek_greek-ext_latin_latin-ext_vietnamese */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Inter Tight';
+    font-style: italic;
+    font-weight: 400;
+    src: url('inter-tight-v7-cyrillic_cyrillic-ext_greek_greek-ext_latin_latin-ext_vietnamese-italic.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* nunito-regular - cyrillic_cyrillic-ext_latin_latin-ext_vietnamese */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 400;
+    src: url('nunito-v25-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-regular.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* nunito-italic - cyrillic_cyrillic-ext_latin_latin-ext_vietnamese */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Nunito';
+    font-style: italic;
+    font-weight: 400;
+    src: url('nunito-v25-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-italic.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+
+/* oswald-regular - cyrillic_cyrillic-ext_latin_latin-ext_vietnamese */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 400;
+    src: url('oswald-v53-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-regular.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* sono-regular - latin_latin-ext_vietnamese */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Sono';
+    font-style: normal;
+    font-weight: 400;
+    src: url('sono-v6-latin_latin-ext_vietnamese-regular.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* gluten-regular - latin_latin-ext_vietnamese */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Gluten';
+    font-style: normal;
+    font-weight: 400;
+    src: url('gluten-v16-latin_latin-ext_vietnamese-regular.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* old-standard-tt-regular - cyrillic_cyrillic-ext_latin_latin-ext_vietnamese */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Old Standard TT';
+    font-style: normal;
+    font-weight: 400;
+    src: url('old-standard-tt-v20-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-regular.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* old-standard-tt-italic - cyrillic_cyrillic-ext_latin_latin-ext_vietnamese */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Old Standard TT';
+    font-style: italic;
+    font-weight: 400;
+    src: url('old-standard-tt-v20-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-italic.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* old-standard-tt-700 - cyrillic_cyrillic-ext_latin_latin-ext_vietnamese */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Old Standard TT';
+    font-style: normal;
+    font-weight: 700;
+    src: url('old-standard-tt-v20-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-700.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* biz-udpmincho-regular - cyrillic_greek-ext_japanese_latin_latin-ext */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'BIZ UDPMincho';
+    font-style: normal;
+    font-weight: 400;
+    src: url('biz-udpmincho-v9-cyrillic_greek-ext_japanese_latin_latin-ext-regular.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* biz-udpmincho-700 - cyrillic_greek-ext_japanese_latin_latin-ext */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'BIZ UDPMincho';
+    font-style: normal;
+    font-weight: 700;
+    src: url('biz-udpmincho-v9-cyrillic_greek-ext_japanese_latin_latin-ext-700.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* zen-old-mincho-regular - cyrillic_greek_japanese_latin_latin-ext */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Zen Old Mincho';
+    font-style: normal;
+    font-weight: 400;
+    src: url('zen-old-mincho-v11-cyrillic_greek_japanese_latin_latin-ext-regular.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* instrument-serif-regular - latin_latin-ext */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Instrument Serif';
+    font-style: normal;
+    font-weight: 400;
+    src: url('instrument-serif-v4-latin_latin-ext-regular.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* instrument-serif-italic - latin_latin-ext */
+@font-face {
+    font-display: swap;
+    /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Instrument Serif';
+    font-style: italic;
+    font-weight: 400;
+    src: url('instrument-serif-v4-latin_latin-ext-italic.woff2') format('woff2');
+    /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+
+
+
+
+@font-face {
+    font-family: 'JGS';
+    src: url('jgs9.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+@font-face {
+    font-family: 'Basteleur';
+    src: url('Basteleur-Moonlight.woff') format('woff'),
+        url('Basteleur-Moonlight.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lithops';
+    src: url('Lithops-Regular.woff') format('woff'),
+        url('Lithops-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Sligoil';
+    src: url('Sligoil-Micro.woff') format('woff'),
+        url('Sligoil-Micro.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pilowlava';
+    src: url('Pilowlava-Regular.woff') format('woff'),
+        url('Pilowlava-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PicNic';
+    src: url('PicNic-Regular.woff') format('woff'),
+        url('PicNic-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TINY';
+    src: url('TINY5x3-100.woff') format('woff'),
+        url('TINY5x3-100.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Avara';
+    src: url('Avara-Bold.woff') format('woff'),
+        url('Avara-Bold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+@font-face {
+    font-family: 'Kaeru Kaeru';
+    src: url('kaerukaeru-Regular.woff') format('woff'),
+        url('kaerukaeru-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+@font-face {
+    font-family: 'Bluu Next';
+    src: url('bluunext-bold-webfont.woff') format('woff'),
+        url('bluunext-bold-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+@font-face {
+    font-family: 'Select Mono';
+    src: url('SelectMono-Italic.woff') format('woff'),
+        url('SelectMono-Italic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+@font-face {
+    font-family: 'Savate';
+    src: url('savate-italique-webfont.woff') format('woff'),
+        url('savate-italique-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+}
+
+
+@font-face {
+    font-family: 'Savate';
+    src: url('savate-regular-webfont.woff') format('woff'),
+        url('savate-regular-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Nyght Serif';
+    src: url('NyghtSerif-Medium.woff') format('woff'),
+        url('NyghtSerif-Medium.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Nyght Serif Italic';
+    src: url('NyghtSerif-MediumItalic.woff') format('woff'),
+        url('NyghtSerif-MediumItalic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Piscolabis';
+    src: url('Piscolabis-Regular.woff') format('woff'),
+        url('Piscolabis-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roubaix Industrielle';
+    src: url('RoubaixIndustrielle-Regular08-13pt.woff') format('woff'),
+        url('RoubaixIndustrielle-Regular08-13pt.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Picaflor';
+    src: url('Picaflor-24pt.woff') format('woff'),
+        url('Picaflor-24pt.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Generale Station';
+    src: url('GeneraleStation-Regular.woff') format('woff'),
+        url('GeneraleStation-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
