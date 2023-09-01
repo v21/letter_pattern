@@ -42,38 +42,30 @@
 
     </select>
     <!--noformat--><textarea id="code" contenteditable="plaintext-only">
-//charSequence = "aaeeaaaee"; 
-charSequence = "1234567890"; 
+charSequence = "abc"; 
 
- writingMode = 0;
-// 0 is ltr
-// 1 is rtl
-// 2 is vertical down
-// 3 is vertical up
-// 4 is boustrophedon
-// 5 is authentic boustrophedon
+writingMode = 0;
 
-
-coloursX = ["rgba(0,0,0,1)"];
-coloursY = ["rgba(0,0,0,1)"];
+coloursX = ['hsl(0,100%,0%,1)'];
+coloursY = ["hsl(180,70%,0%,1)"];
 
 anglesX = [12, 82, 171, 280];
 anglesY = [270, 180, 90, 0];
 
-isDrawnsOp = "xor"; // or "or", "and" or "nor"
-isDrawnsX = [true];
-isDrawnsY = [false];
+isDrawnsOp = "or"; // or "xor", "and" or "nor"
+isDrawnsX = [true, true, false];
+isDrawnsY = [true, true, false];
 
 sizesX = [1,];
 sizesY = [0,];
 
-countX = 10;
-countY = 10;
-   </textarea> <!--noformat-->
+countX = 11;
+countY = 11;
+</textarea> <!--noformat-->
     <script src="main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
 
-    =
+
 </body>
 
 </html>
